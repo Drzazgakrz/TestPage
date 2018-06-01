@@ -1,5 +1,5 @@
 body{
-    background-color: darkgrey;
+    background-color: lightgray;
 }
 
 .header{
@@ -17,4 +17,16 @@ input{
 }
 label{
     width: 10%;
+}
+.col-3,.col-5{
+    margin-bottom: 0.5%;
+    background-color: white;
+    padding-bottom: auto;
+    padding-top: auto;
+}
+.col-3{
+    margin-left: 15%;
+}
+#submitButton{
+    width: 5%;
 }

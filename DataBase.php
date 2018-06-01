@@ -1,13 +1,18 @@
 <?php
 
-class DataBaseConnection {
+
+class DataBase {
+=======
+
     private $mysqli;
 
     public function __construct($serwer, $user, $pass, $baza) {
         $this->mysqli = new mysqli($serwer, $user, $pass, $baza);
 
         if ($this->mysqli->connect_errno) {
+
             printf("Nie udało sie połączenie z serwerem: %s\n");
+
             exit();
         }
 
