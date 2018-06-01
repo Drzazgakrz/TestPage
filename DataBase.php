@@ -3,11 +3,11 @@
 class DataBaseConnection {
     private $mysqli;
 
-    public function __construct($serwer, $user, $pass, $baza, $mysqli) {
+    public function __construct($serwer, $user, $pass, $baza) {
         $this->mysqli = new mysqli($serwer, $user, $pass, $baza);
 
         if ($this->mysqli->connect_errno) {
-            printf("Nie udało sie połączenie z serwerem: %s\n", $mysqli->connect_error);
+            printf("Nie udało sie połączenie z serwerem: %s\n");
             exit();
         }
 
@@ -26,7 +26,7 @@ class DataBaseConnection {
         $content = "<table>";
         while($row = $res->fetch_object()){
             $content .= "<tr>";
-            for( $i = 0; i < $countFields; i++ )
+            for( $i = 0; i < $countFields; $i++)
             {
                 $p = $fields[$i];
                 $content.="<td>" . $row->$p . "</td>";
@@ -45,4 +45,3 @@ class DataBaseConnection {
         $this->mysqli->query($sql);
     }
 }
-?>
