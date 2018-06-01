@@ -1,6 +1,6 @@
 <?php
 
-class Baza {
+class DataBaseConnection {
     private $mysqli;
 
     public function __construct($serwer, $user, $pass, $baza, $mysqli) {
@@ -18,9 +18,25 @@ class Baza {
         $this->mysqli->close();
     }
 
-    public function select($sql) {
+    public function select($sql, $fields) {
+        $content = "";
         $res = $this->mysqli->query($sql);
-        return $res;
+        $countFields = count($fields);
+        $countRows = $res->num_rows;
+        $content = "<table>";
+        while($row = $res->fetch_object()){
+            $content .= "<tr>";
+            for( $i = 0; i < $countFields; i++ )
+            {
+                $p = $fields[$i];
+                $content.="<td>" . $row->$p . "</td>";
+            }
+            $content = "</tr>";
+        }
+        $content .= "<table>";
+        $res->close();
+
+        return $content;
     }
     public function insert($sql) {
         $this->mysqli->query($sql);
