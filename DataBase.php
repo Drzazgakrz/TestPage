@@ -1,13 +1,18 @@
 <?php
 
+
 class DataBase {
+=======
+
     private $mysqli;
 
     public function __construct($serwer, $user, $pass, $baza) {
         $this->mysqli = new mysqli($serwer, $user, $pass, $baza);
 
         if ($this->mysqli->connect_errno) {
-            printf("Nie udało sie połączenie z serwerem: %s\n", $this->mysqli->connect_error);
+
+            printf("Nie udało sie połączenie z serwerem: %s\n");
+
             exit();
         }
 
@@ -18,9 +23,25 @@ class DataBase {
         $this->mysqli->close();
     }
 
-    public function select($sql) {
+    public function select($sql, $fields) {
+        $content = "";
         $res = $this->mysqli->query($sql);
-        return $res;
+        $countFields = count($fields);
+        $countRows = $res->num_rows;
+        $content = "<table>";
+        while($row = $res->fetch_object()){
+            $content .= "<tr>";
+            for( $i = 0; i < $countFields; $i++)
+            {
+                $p = $fields[$i];
+                $content.="<td>" . $row->$p . "</td>";
+            }
+            $content = "</tr>";
+        }
+        $content .= "<table>";
+        $res->close();
+
+        return $content;
     }
     public function insert($sql) {
         $this->mysqli->query($sql);
@@ -29,4 +50,3 @@ class DataBase {
         $this->mysqli->query($sql);
     }
 }
-?>
