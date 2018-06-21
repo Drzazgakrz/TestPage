@@ -31,8 +31,16 @@
             </h3>
             <form action="index.php" method="post" id="myForm">
 
+
             </form>
             <?php
+            require_once "UserModel.php";
+                if($_REQUEST["name"]){
+                    $user = new UserModel($_REQUEST["name"],$_REQUEST["surname"],$_REQUEST["address"],
+                        $_REQUEST["phoneNumber"],$_REQUEST["city"]);
+                    $user->insertUserToDB();
+                }
+
             ?>
         </div>
 
